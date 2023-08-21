@@ -1,0 +1,5 @@
+/build
+/lake-packages
+/.cache
+.DS_Store
+/out
