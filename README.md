@@ -240,7 +240,7 @@ consider modifying one of the other tools to give you directly what you want!
 
 ### LeanDojo
 
-[LeanDojo] provides similar tools.
+[LeanDojo](https://leandojo.org/) provides similar tools.
 
 I like that the tools provided here are standalone tools provided separately from any model or benchmark.
 They are "pure lean" (plus a little bash scripting), and may be useful models for anyone interested
