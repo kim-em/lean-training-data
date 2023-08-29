@@ -27,9 +27,7 @@ def verboseTrainingData (module : Name) (i : TacticInvocation) : IO String := do
   return result
 
 def proofStepData (i : TacticInvocation) : IO String := do
-  let mut result := "[GOAL]\n" ++ (Format.joinSep (← i.goalState) "\n").pretty ++ "\n[PROOFSTEP]\n" ++ (← i.pp).pretty
-
-  return result
+  return "[GOAL]\n" ++ (Format.joinSep (← i.goalState) "\n").pretty ++ "\n[PROOFSTEP]\n" ++ (← i.pp).pretty
 
 end Lean.Elab.TacticInvocation
 

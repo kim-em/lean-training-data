@@ -6,7 +6,7 @@ package «lean-training-data» {
 }
 
 require mathlib from git
-  "https://github.com/leanprover-community/mathlib4.git" @ "withImportModules"
+  "https://github.com/leanprover-community/mathlib4.git" @ "master"
 
 @[default_target]
 lean_lib TrainingData where
@@ -28,3 +28,6 @@ lean_exe premises where
 
 lean_exe declaration_types where
   root := `scripts.declaration_types
+
+lean_exe goal_comments where
+  root := `scripts.goal_comments

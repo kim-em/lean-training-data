@@ -17,6 +17,9 @@ We would like to enable sharing of data and easy access to the Lean libraries fo
   Constants appearing in explicit arguments are prefixed `*`,
   and constants used by the simplifier are prefixed `s`.
 
+`goal_comments`
+: Edit a Lean source file to insert `-- ⊢ x = y` comments after each tactic invocation.
+
 `training_data`
 : Export all goal / tactic pairs from the library, with additional context.
   `--proofstep` outputs in `[GOAL]...[PROOFSTEP]...` format.
@@ -107,6 +110,24 @@ s propext
 
 This takes about 4 minutes on my system, producing a 115mb file,
 containing information for ~170000 declarations in Mathlib and Std.
+
+### `goal_comments`
+
+`lake exe goal_comments Mathlib.Logic.Hydra` will recompile the target module,
+and print the source file with inserted comments `-- ⊢ x = y`
+showing the goal after each tactic invocation.
+
+With the `--edit` flag it will also edit the source file in place
+(e.g. for Mathlib files, in your `lake-package/mathlib/` directory).
+
+I have made a `goal_comments` branch of Mathlib containing the complete output.
+If you would like this updated please ask. I can set up regular CI if needed.
+
+This may be useful for machine learning training data, alongside the un-annotated source,
+both for training prediction of next tactics from goals,
+and training expected goal states from tactics.
+
+`scripts/goal_comments.sh --edit` will run this script on all of Mathlib.
 
 ### `training_data`
 
