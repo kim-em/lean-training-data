@@ -31,3 +31,6 @@ lean_exe declaration_types where
 
 lean_exe goal_comments where
   root := `scripts.goal_comments
+
+lean_exe verify where
+  root := `scripts.verify

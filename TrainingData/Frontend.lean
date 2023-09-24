@@ -6,6 +6,7 @@ Authors: Scott Morrison
 import Lean.Elab.Frontend
 import Std.Util.TermUnsafe
 import Std.Data.MLList.Basic
+import Mathlib.Lean.Expr.Basic
 
 /-!
 # Compiling Lean sources to obtain `Environment`, `Message`s and `InfoTree`s.
@@ -71,6 +72,33 @@ partial def runStateRefT [Monad m] [MonadLiftT (ST ω) m] (L : MLList (StateRefT
 
 end MLList
 
+namespace Lean.Environment
+
+/--
+Given a collection of declarations a collection of declarations
+that we would like to add to the environment,
+try to find an order that does so successfully.
+
+If we reach a point where it is not possible to add any of the remaining declarations,
+return the `KernelException` resulting from the first failure.
+-/
+partial def addDecls (env : Environment) (decls : List ConstantInfo) :
+    Environment ⊕ List (ConstantInfo × KernelException) :=
+  if decls.isEmpty then
+    .inl env
+  else
+    -- This could be made more efficient.
+    let find := decls.enum.findSome? fun ⟨i, d⟩ => match env.addDecl d.toDeclaration! with
+    | .ok e => some (i, e)
+    | .error _ => none
+    match find with
+    | none => .inr <|
+        decls.filterMap fun d =>
+          match env.addDecl d.toDeclaration! with | .ok _ => none | .error e => some (d, e)
+    | some (i, e) => e.addDecls (decls.eraseIdx i)
+
+end Lean.Environment
+
 namespace Lean.Elab.IO
 
 /--
@@ -118,6 +146,33 @@ partial def all : FrontendM (List CompilationStep) := do
 def diff (cmd : CompilationStep) : List ConstantInfo :=
   cmd.after.constants.map₂.toList.filterMap
     fun (c, i) => if cmd.before.constants.map₂.contains c then none else some i
+
+def diff' (cmd : CompilationStep) : List ConstantInfo :=
+  cmd.diff.filter fun ci => match ci.name with
+    | .str _ "_cstage2" => false
+    | .str _ "_cstage1" => false
+    | .str _ "_unsafe_rec" => false
+    | _ => true
+
+def run (cmd : CompilationStep) (t : CoreM α) : IO α := do
+  let options := ({} : KVMap)
+  let ctx := { fileName := "", options, fileMap := default }
+  let state := { env := cmd.before }
+  Prod.fst <$> (Lean.Core.CoreM.toIO · ctx state) do t
+
+def verify (cmd : CompilationStep) : IO (Environment ⊕ List (ConstantInfo × MessageData)) := do
+  let r := cmd.before.addDecls cmd.diff'
+  match r with
+  | .inl env => return .inl env
+  | .inr exceptions =>
+    let messages ← exceptions.mapM fun ⟨d, e⟩ => do
+      cmd.run do
+        try
+          throwKernelException e
+          unreachable!
+        catch ex => pure (d, ex.toMessageData)
+    return .inr messages
+
 
 end CompilationStep
 
@@ -235,3 +290,17 @@ def compileModule (mod : Name) : IO (List CompilationStep) := do
 def moduleInfoTrees (mod : Name) : IO (List InfoTree) := do
   let steps ← compileModule mod
   return steps.bind (fun c => c.trees)
+
+def verifyModule (mod : Name) : IO Unit := do
+  for step in compileModule' mod do
+    match ← step.verify with
+    | .inl _ => pure ()
+    | .inr errors =>
+        IO.eprintln "Kernel exception while processing:"
+        IO.eprintln "---"
+        IO.eprintln step.src
+        IO.eprintln "---"
+        IO.eprintln "Could not add declarations:"
+        for (ci, msg) in errors do
+          IO.eprintln ci.name
+          IO.eprintln (← msg.toString)
