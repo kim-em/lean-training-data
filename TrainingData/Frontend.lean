@@ -96,11 +96,10 @@ Process one command, returning a `CompilationStep` and
 -/
 def one : FrontendM (CompilationStep × Bool) := do
   let s := (← get).commandState
-  let beforePos := (← get).cmdPos
   let before := s.env
   let done ← processCommand
   let stx := (← get).commands.back
-  let src := ⟨(← read).inputCtx.input, beforePos, (← get).cmdPos⟩ -- FIXME this is incorrect
+  let src := ⟨(← read).inputCtx.input, (← get).cmdPos, (← get).parserState.pos⟩
   let s' := (← get).commandState
   let after := s'.env
   let msgs := s'.messages.msgs.drop s.messages.msgs.size
