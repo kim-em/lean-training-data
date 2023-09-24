@@ -1,8 +1,9 @@
 import TrainingData.Frontend
 import TrainingData.InfoTree.ToJson
 import Mathlib.Tactic.ToExpr -- Upstreamed to std4 as https://github.com/leanprover/std4/pull/221
-import Mathlib.Util.Cli -- Upstreamed to lean4-cli as https://github.com/mhuisi/lean4-cli/pull/15
 import Mathlib.Lean.CoreM
+import Std.Lean.Util.Path
+import Cli
 
 open Lean Elab IO Meta
 open Cli System
@@ -13,8 +14,8 @@ structure InfoTreeExport where
 deriving ToJson
 
 def exportInfoTree (args : Cli.Parsed) : IO UInt32 := do
-    searchPathRef.set compileTimeSearchPath%
-    let target := args.positionalArg! "module" |>.as! Name
+    searchPathRef.set compile_time_search_path%
+    let target := args.positionalArg! "module" |>.as! ModuleName
     let mut trees ← moduleInfoTrees target
     if args.hasFlag "tactics" then
       trees := (trees.map InfoTree.retainTacticInfo).join
@@ -37,7 +38,7 @@ def export_infotree : Cmd := `[Cli|
     "substantive";  "Skip tactic combinators."
 
   ARGS:
-    module : Name; "Lean module to compile and export InfoTrees."
+    module : ModuleName; "Lean module to compile and export InfoTrees."
 ]
 
 /-- `lake exe export_infotree` -/

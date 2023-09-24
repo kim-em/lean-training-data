@@ -1,4 +1,7 @@
 import Mathlib.Lean.CoreM
+import Mathlib.Lean.Expr.Basic
+import Std.Lean.Util.Path
+import Std.Lean.HashMap
 
 open Lean Meta
 
@@ -14,9 +17,9 @@ def Lean.ConstantInfo.kind : ConstantInfo → String
 
 def main (args : List String) : IO UInt32 := do
   let modules := match args with
-  | [] => [`Mathlib]
-  | args => args.map fun s => s.toName
-  searchPathRef.set compileTimeSearchPath%
+  | [] => #[`Mathlib]
+  | args => args.toArray.map fun s => s.toName
+  searchPathRef.set compile_time_search_path%
   CoreM.withImportModules modules do
     for (n, c) in (← getEnv).constants.map₁ do
       if ! (← n.isBlackListed) then

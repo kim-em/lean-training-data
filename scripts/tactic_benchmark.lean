@@ -3,20 +3,11 @@ import Mathlib.Control.Basic
 import Mathlib.Lean.Expr.Basic
 import Mathlib.Tactic.Common
 import Mathlib.Tactic.ToExpr
-import Mathlib.Util.Cli
 import Aesop
 import Lean.Util.Trace
+import Cli
 
 open Lean Core Elab IO Meta Term Tactic -- All the monads!
-
-
-/-- Count the number of heartbeats used during a monadic function. -/
--- Upstreamed in https://github.com/leanprover/std4/pull/212
-def Lean.withHeartbeats [Monad m] [MonadLiftT BaseIO m] (x : m α) : m (α × Nat) := do
-  let start ← IO.getNumHeartbeats
-  let r ← x
-  let finish ← IO.getNumHeartbeats
-  return (r, (finish - start) / 1000)
 
 set_option autoImplicit true
 
@@ -113,8 +104,8 @@ def useSimpAll : TacticM Unit := do evalTactic (← `(tactic| intros; simp_all))
 open Cli System
 
 def tacticBenchmarkMain (args : Cli.Parsed) : IO UInt32 := do
-  let module := args.positionalArg! "module" |>.as! Name
-  searchPathRef.set compileTimeSearchPath%
+  let module := args.positionalArg! "module" |>.as! ModuleName
+  searchPathRef.set compile_time_search_path%
   let tac ←
     if args.hasFlag "aesop" then pure useAesop else
     if args.hasFlag "exact" then pure useExact? else
@@ -140,7 +131,7 @@ def tactic_benchmark : Cmd := `[Cli|
     "simp_all";    "Use `intros; simp_all`."
 
   ARGS:
-    module : Name; "Lean module to compile and export InfoTrees."
+    module : ModuleName; "Lean module to compile and export InfoTrees."
 ]
 
 /-- `lake exe tactic_benchmark` -/

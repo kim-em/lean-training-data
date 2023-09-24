@@ -7,12 +7,13 @@
 # * YYYY-MM-DD-proof_step.tgz
 
 DATE=`date "+%Y-%m-%d"`
+mkdir -p out
 
 lake exe declaration_types > out/$DATE-declaration_types
-gzip out/$DATE-declaration_types
+gzip -f out/$DATE-declaration_types
 
 lake exe premises > out/$DATE-premises
-gzip out/$DATE-premises
+gzip -f out/$DATE-premises
 
 rm -rf out/export_infotree
 ./scripts/export_infotree.sh

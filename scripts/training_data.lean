@@ -2,8 +2,9 @@ import TrainingData.Frontend
 import TrainingData.InfoTree.ToJson
 import TrainingData.InfoTree.TacticInvocation.Basic
 import Mathlib.Data.String.Defs
-import Mathlib.Util.Cli
 import Mathlib.Lean.CoreM
+import Std.Lean.Util.Path
+import Std.Data.String.Basic
 import Cli
 
 open Lean Elab IO Meta
@@ -32,8 +33,8 @@ def proofStepData (i : TacticInvocation) : IO String := do
 end Lean.Elab.TacticInvocation
 
 def trainingData (args : Cli.Parsed) : IO UInt32 := do
-    searchPathRef.set compileTimeSearchPath%
-    let module := args.positionalArg! "module" |>.as! Name
+    searchPathRef.set compile_time_search_path%
+    let module := args.positionalArg! "module" |>.as! ModuleName
     let mut trees ← moduleInfoTrees module
     trees := trees.bind InfoTree.retainTacticInfo
     trees := trees.bind InfoTree.retainOriginal
@@ -103,7 +104,7 @@ Here:
     "proofstep";       "Use the proofstep format: [GOAL]tactic-state[PROOFSTEP]next-tactic"
 
   ARGS:
-    module : Name; "Lean module to compile and export training data."
+    module : ModuleName; "Lean module to compile and export training data."
 ]
 
 /-- `lake exe training_data` -/

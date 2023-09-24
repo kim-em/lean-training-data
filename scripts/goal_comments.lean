@@ -2,8 +2,8 @@ import TrainingData.Frontend
 import TrainingData.InfoTree.ToJson
 import TrainingData.InfoTree.TacticInvocation.Basic
 import Mathlib.Data.String.Defs
-import Mathlib.Util.Cli
 import Mathlib.Lean.CoreM
+import Mathlib.Tactic.Change
 import Cli
 
 open Lean Elab IO Meta
@@ -61,8 +61,8 @@ def justTheGoal (s : String) : String :=
 def String.indent (s : String) (k : Nat) : String := ⟨List.replicate k ' '⟩ ++ s
 
 def goalComments (args : Cli.Parsed) : IO UInt32 := do
-    searchPathRef.set compileTimeSearchPath%
-    let module := args.positionalArg! "module" |>.as! Name
+    searchPathRef.set compile_time_search_path%
+    let module := args.positionalArg! "module" |>.as! ModuleName
     let mut trees ← moduleInfoTrees module
     trees := trees.bind InfoTree.retainTacticInfo
     trees := trees.bind InfoTree.retainOriginal
@@ -91,7 +91,7 @@ Prints the modified source code to stdout."
     "edit";      "Also edit the source code in place."
 
   ARGS:
-    module : Name; "Lean module to compile and annotate with goal comments."
+    module : ModuleName; "Lean module to compile and annotate with goal comments."
 ]
 
 /-- `lake exe goal_comments` -/

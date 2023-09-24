@@ -1,5 +1,8 @@
 import Mathlib.Lean.CoreM
 import Mathlib.Control.Basic
+import Mathlib.Lean.Expr.Basic
+import Std.Lean.HashMap
+import Std.Lean.Util.Path
 
 /-!
 Generate declaration dependencies up to a target file (defaulting to all of Mathlib).
@@ -102,9 +105,9 @@ def allExplicitConstants : MetaM (NameMap NameSet) := do
 def main (args : List String) : IO UInt32 := do
   let options := Options.empty.insert `maxHeartbeats (0 : Nat)
   let modules := match args with
-  | [] => [`Mathlib]
-  | args => args.map fun s => s.toName
-  searchPathRef.set compileTimeSearchPath%
+  | [] => #[`Mathlib]
+  | args => args.toArray.map fun s => s.toName
+  searchPathRef.set compile_time_search_path%
   CoreM.withImportModules modules (options := options) do
     let allConstants ← allUsedConstants
     let explicitConstants ← MetaM.run' allExplicitConstants
