@@ -1,0 +1,986 @@
+{"trees":
+ [{"node":
+   {"stx":
+    {"range":
+     {"synthetic": false,
+      "start": {"line": 1, "column": 0},
+      "finish": {"line": 3, "column": 22}},
+     "pp":
+     "example {a b c : Nat} (h₁ : a = b) (h₂ : b = c) : a = c := by\n  calc\n    a = b := by exact h₁\n    _ = c := by exact h₂"},
+    "elaborator": "Lean.Elab.Command.elabDeclaration"},
+   "kind": "CommmandInfo",
+   "children":
+   [{"node":
+     {"stx":
+      {"range":
+       {"synthetic": false,
+        "start": {"line": 1, "column": 17},
+        "finish": {"line": 1, "column": 20}},
+       "pp": "Nat"},
+      "isBinder": false,
+      "expr": "Nat",
+      "expectedType": "Type",
+      "elaborator": "Lean.Elab.Term.elabIdent"},
+     "kind": "TermInfo",
+     "children":
+     [{"node": null, "kind": "CompletionInfo", "children": []},
+      {"node":
+       {"stx":
+        {"range":
+         {"synthetic": false,
+          "start": {"line": 1, "column": 17},
+          "finish": {"line": 1, "column": 20}},
+         "pp": "Nat"},
+        "isBinder": false,
+        "expr": "Nat",
+        "expectedType": "Type",
+        "elaborator": null},
+       "kind": "TermInfo",
+       "children": []}]},
+    {"node":
+     {"stx":
+      {"range":
+       {"synthetic": false,
+        "start": {"line": 1, "column": 9},
+        "finish": {"line": 1, "column": 10}},
+       "pp": "a"},
+      "isBinder": true,
+      "expr": "a",
+      "elaborator": null},
+     "kind": "TermInfo",
+     "children": []},
+    {"node":
+     {"stx":
+      {"range":
+       {"synthetic": false,
+        "start": {"line": 1, "column": 17},
+        "finish": {"line": 1, "column": 20}},
+       "pp": "Nat"},
+      "isBinder": false,
+      "expr": "Nat",
+      "expectedType": "Type",
+      "elaborator": "Lean.Elab.Term.elabIdent"},
+     "kind": "TermInfo",
+     "children":
+     [{"node": null, "kind": "CompletionInfo", "children": []},
+      {"node":
+       {"stx":
+        {"range":
+         {"synthetic": false,
+          "start": {"line": 1, "column": 17},
+          "finish": {"line": 1, "column": 20}},
+         "pp": "Nat"},
+        "isBinder": false,
+        "expr": "Nat",
+        "expectedType": "Type",
+        "elaborator": null},
+       "kind": "TermInfo",
+       "children": []}]},
+    {"node":
+     {"stx":
+      {"range":
+       {"synthetic": false,
+        "start": {"line": 1, "column": 11},
+        "finish": {"line": 1, "column": 12}},
+       "pp": "b"},
+      "isBinder": true,
+      "expr": "b",
+      "elaborator": null},
+     "kind": "TermInfo",
+     "children": []},
+    {"node":
+     {"stx":
+      {"range":
+       {"synthetic": false,
+        "start": {"line": 1, "column": 17},
+        "finish": {"line": 1, "column": 20}},
+       "pp": "Nat"},
+      "isBinder": false,
+      "expr": "Nat",
+      "expectedType": "Type",
+      "elaborator": "Lean.Elab.Term.elabIdent"},
+     "kind": "TermInfo",
+     "children":
+     [{"node": null, "kind": "CompletionInfo", "children": []},
+      {"node":
+       {"stx":
+        {"range":
+         {"synthetic": false,
+          "start": {"line": 1, "column": 17},
+          "finish": {"line": 1, "column": 20}},
+         "pp": "Nat"},
+        "isBinder": false,
+        "expr": "Nat",
+        "expectedType": "Type",
+        "elaborator": null},
+       "kind": "TermInfo",
+       "children": []}]},
+    {"node":
+     {"stx":
+      {"range":
+       {"synthetic": false,
+        "start": {"line": 1, "column": 13},
+        "finish": {"line": 1, "column": 14}},
+       "pp": "c"},
+      "isBinder": true,
+      "expr": "c",
+      "elaborator": null},
+     "kind": "TermInfo",
+     "children": []},
+    {"node":
+     {"stx":
+      {"range":
+       {"synthetic": false,
+        "start": {"line": 1, "column": 28},
+        "finish": {"line": 1, "column": 33}},
+       "pp": "a = b"},
+      "isBinder": false,
+      "expr": "a = b",
+      "expectedType": "Sort ?u.7",
+      "elaborator": "«_aux_Init_Notation___macroRules_term_=__2»"},
+     "kind": "TermInfo",
+     "children":
+     [{"node": null,
+       "kind": "MacroExpansionInfo",
+       "children":
+       [{"node":
+         {"stx":
+          {"range":
+           {"synthetic": true,
+            "start": {"line": 1, "column": 28},
+            "finish": {"line": 1, "column": 33}},
+           "pp": "binrel% Eq✝ a b"},
+          "isBinder": false,
+          "expr": "a = b",
+          "expectedType": "Sort ?u.7",
+          "elaborator": "Lean.Elab.Term.Op.elabBinRel"},
+         "kind": "TermInfo",
+         "children":
+         [{"node":
+           {"stx":
+            {"range":
+             {"synthetic": true,
+              "start": {"line": 1, "column": 28},
+              "finish": {"line": 1, "column": 33}},
+             "pp": "binrel% Eq✝ a b"},
+            "isBinder": false,
+            "expr": "a = b",
+            "elaborator": null},
+           "kind": "TermInfo",
+           "children":
+           [{"node": null, "kind": "CompletionInfo", "children": []},
+            {"node":
+             {"stx":
+              {"range":
+               {"synthetic": false,
+                "start": {"line": 1, "column": 28},
+                "finish": {"line": 1, "column": 29}},
+               "pp": "a"},
+              "isBinder": false,
+              "expr": "a",
+              "elaborator": "Lean.Elab.Term.elabIdent"},
+             "kind": "TermInfo",
+             "children":
+             [{"node": null, "kind": "CompletionInfo", "children": []},
+              {"node":
+               {"stx":
+                {"range":
+                 {"synthetic": false,
+                  "start": {"line": 1, "column": 28},
+                  "finish": {"line": 1, "column": 29}},
+                 "pp": "a"},
+                "isBinder": false,
+                "expr": "a",
+                "elaborator": null},
+               "kind": "TermInfo",
+               "children": []}]},
+            {"node":
+             {"stx":
+              {"range":
+               {"synthetic": false,
+                "start": {"line": 1, "column": 32},
+                "finish": {"line": 1, "column": 33}},
+               "pp": "b"},
+              "isBinder": false,
+              "expr": "b",
+              "elaborator": "Lean.Elab.Term.elabIdent"},
+             "kind": "TermInfo",
+             "children":
+             [{"node": null, "kind": "CompletionInfo", "children": []},
+              {"node":
+               {"stx":
+                {"range":
+                 {"synthetic": false,
+                  "start": {"line": 1, "column": 32},
+                  "finish": {"line": 1, "column": 33}},
+                 "pp": "b"},
+                "isBinder": false,
+                "expr": "b",
+                "elaborator": null},
+               "kind": "TermInfo",
+               "children": []}]}]}]}]}]},
+    {"node":
+     {"stx":
+      {"range":
+       {"synthetic": false,
+        "start": {"line": 1, "column": 23},
+        "finish": {"line": 1, "column": 25}},
+       "pp": "h₁"},
+      "isBinder": true,
+      "expr": "h₁",
+      "elaborator": null},
+     "kind": "TermInfo",
+     "children": []},
+    {"node":
+     {"stx":
+      {"range":
+       {"synthetic": false,
+        "start": {"line": 1, "column": 41},
+        "finish": {"line": 1, "column": 46}},
+       "pp": "b = c"},
+      "isBinder": false,
+      "expr": "b = c",
+      "expectedType": "Sort ?u.11",
+      "elaborator": "«_aux_Init_Notation___macroRules_term_=__2»"},
+     "kind": "TermInfo",
+     "children":
+     [{"node": null,
+       "kind": "MacroExpansionInfo",
+       "children":
+       [{"node":
+         {"stx":
+          {"range":
+           {"synthetic": true,
+            "start": {"line": 1, "column": 41},
+            "finish": {"line": 1, "column": 46}},
+           "pp": "binrel% Eq✝ b c"},
+          "isBinder": false,
+          "expr": "b = c",
+          "expectedType": "Sort ?u.11",
+          "elaborator": "Lean.Elab.Term.Op.elabBinRel"},
+         "kind": "TermInfo",
+         "children":
+         [{"node":
+           {"stx":
+            {"range":
+             {"synthetic": true,
+              "start": {"line": 1, "column": 41},
+              "finish": {"line": 1, "column": 46}},
+             "pp": "binrel% Eq✝ b c"},
+            "isBinder": false,
+            "expr": "b = c",
+            "elaborator": null},
+           "kind": "TermInfo",
+           "children":
+           [{"node": null, "kind": "CompletionInfo", "children": []},
+            {"node":
+             {"stx":
+              {"range":
+               {"synthetic": false,
+                "start": {"line": 1, "column": 41},
+                "finish": {"line": 1, "column": 42}},
+               "pp": "b"},
+              "isBinder": false,
+              "expr": "b",
+              "elaborator": "Lean.Elab.Term.elabIdent"},
+             "kind": "TermInfo",
+             "children":
+             [{"node": null, "kind": "CompletionInfo", "children": []},
+              {"node":
+               {"stx":
+                {"range":
+                 {"synthetic": false,
+                  "start": {"line": 1, "column": 41},
+                  "finish": {"line": 1, "column": 42}},
+                 "pp": "b"},
+                "isBinder": false,
+                "expr": "b",
+                "elaborator": null},
+               "kind": "TermInfo",
+               "children": []}]},
+            {"node":
+             {"stx":
+              {"range":
+               {"synthetic": false,
+                "start": {"line": 1, "column": 45},
+                "finish": {"line": 1, "column": 46}},
+               "pp": "c"},
+              "isBinder": false,
+              "expr": "c",
+              "elaborator": "Lean.Elab.Term.elabIdent"},
+             "kind": "TermInfo",
+             "children":
+             [{"node": null, "kind": "CompletionInfo", "children": []},
+              {"node":
+               {"stx":
+                {"range":
+                 {"synthetic": false,
+                  "start": {"line": 1, "column": 45},
+                  "finish": {"line": 1, "column": 46}},
+                 "pp": "c"},
+                "isBinder": false,
+                "expr": "c",
+                "elaborator": null},
+               "kind": "TermInfo",
+               "children": []}]}]}]}]}]},
+    {"node":
+     {"stx":
+      {"range":
+       {"synthetic": false,
+        "start": {"line": 1, "column": 36},
+        "finish": {"line": 1, "column": 38}},
+       "pp": "h₂"},
+      "isBinder": true,
+      "expr": "h₂",
+      "elaborator": null},
+     "kind": "TermInfo",
+     "children": []},
+    {"node":
+     {"stx":
+      {"range":
+       {"synthetic": false,
+        "start": {"line": 1, "column": 50},
+        "finish": {"line": 1, "column": 55}},
+       "pp": "a = c"},
+      "isBinder": false,
+      "expr": "a = c",
+      "expectedType": "Sort ?u.15",
+      "elaborator": "«_aux_Init_Notation___macroRules_term_=__2»"},
+     "kind": "TermInfo",
+     "children":
+     [{"node": null,
+       "kind": "MacroExpansionInfo",
+       "children":
+       [{"node":
+         {"stx":
+          {"range":
+           {"synthetic": true,
+            "start": {"line": 1, "column": 50},
+            "finish": {"line": 1, "column": 55}},
+           "pp": "binrel% Eq✝ a c"},
+          "isBinder": false,
+          "expr": "a = c",
+          "expectedType": "Sort ?u.15",
+          "elaborator": "Lean.Elab.Term.Op.elabBinRel"},
+         "kind": "TermInfo",
+         "children":
+         [{"node":
+           {"stx":
+            {"range":
+             {"synthetic": true,
+              "start": {"line": 1, "column": 50},
+              "finish": {"line": 1, "column": 55}},
+             "pp": "binrel% Eq✝ a c"},
+            "isBinder": false,
+            "expr": "a = c",
+            "elaborator": null},
+           "kind": "TermInfo",
+           "children":
+           [{"node": null, "kind": "CompletionInfo", "children": []},
+            {"node":
+             {"stx":
+              {"range":
+               {"synthetic": false,
+                "start": {"line": 1, "column": 50},
+                "finish": {"line": 1, "column": 51}},
+               "pp": "a"},
+              "isBinder": false,
+              "expr": "a",
+              "elaborator": "Lean.Elab.Term.elabIdent"},
+             "kind": "TermInfo",
+             "children":
+             [{"node": null, "kind": "CompletionInfo", "children": []},
+              {"node":
+               {"stx":
+                {"range":
+                 {"synthetic": false,
+                  "start": {"line": 1, "column": 50},
+                  "finish": {"line": 1, "column": 51}},
+                 "pp": "a"},
+                "isBinder": false,
+                "expr": "a",
+                "elaborator": null},
+               "kind": "TermInfo",
+               "children": []}]},
+            {"node":
+             {"stx":
+              {"range":
+               {"synthetic": false,
+                "start": {"line": 1, "column": 54},
+                "finish": {"line": 1, "column": 55}},
+               "pp": "c"},
+              "isBinder": false,
+              "expr": "c",
+              "elaborator": "Lean.Elab.Term.elabIdent"},
+             "kind": "TermInfo",
+             "children":
+             [{"node": null, "kind": "CompletionInfo", "children": []},
+              {"node":
+               {"stx":
+                {"range":
+                 {"synthetic": false,
+                  "start": {"line": 1, "column": 54},
+                  "finish": {"line": 1, "column": 55}},
+                 "pp": "c"},
+                "isBinder": false,
+                "expr": "c",
+                "elaborator": null},
+               "kind": "TermInfo",
+               "children": []}]}]}]}]}]},
+    {"node":
+     {"stx":
+      {"range":
+       {"synthetic": true,
+        "start": {"line": 1, "column": 0},
+        "finish": {"line": 3, "column": 22}},
+       "pp": "_example"},
+      "isBinder": true,
+      "expr": "_example",
+      "elaborator": null},
+     "kind": "TermInfo",
+     "children": []},
+    {"node":
+     {"stx":
+      {"range":
+       {"synthetic": false,
+        "start": {"line": 1, "column": 9},
+        "finish": {"line": 1, "column": 10}},
+       "pp": "a"},
+      "isBinder": true,
+      "expr": "a",
+      "elaborator": null},
+     "kind": "TermInfo",
+     "children": []},
+    {"node":
+     {"stx":
+      {"range":
+       {"synthetic": false,
+        "start": {"line": 1, "column": 11},
+        "finish": {"line": 1, "column": 12}},
+       "pp": "b"},
+      "isBinder": true,
+      "expr": "b",
+      "elaborator": null},
+     "kind": "TermInfo",
+     "children": []},
+    {"node":
+     {"stx":
+      {"range":
+       {"synthetic": false,
+        "start": {"line": 1, "column": 13},
+        "finish": {"line": 1, "column": 14}},
+       "pp": "c"},
+      "isBinder": true,
+      "expr": "c",
+      "elaborator": null},
+     "kind": "TermInfo",
+     "children": []},
+    {"node":
+     {"stx":
+      {"range":
+       {"synthetic": false,
+        "start": {"line": 1, "column": 23},
+        "finish": {"line": 1, "column": 25}},
+       "pp": "h₁"},
+      "isBinder": true,
+      "expr": "h₁",
+      "elaborator": null},
+     "kind": "TermInfo",
+     "children": []},
+    {"node":
+     {"stx":
+      {"range":
+       {"synthetic": false,
+        "start": {"line": 1, "column": 36},
+        "finish": {"line": 1, "column": 38}},
+       "pp": "h₂"},
+      "isBinder": true,
+      "expr": "h₂",
+      "elaborator": null},
+     "kind": "TermInfo",
+     "children": []},
+    {"node":
+     {"stx":
+      {"range":
+       {"synthetic": false,
+        "start": {"line": 1, "column": 59},
+        "finish": {"line": 3, "column": 22}},
+       "pp": "by\n  calc\n    a = b := by exact h₁\n    _ = c := by exact h₂"},
+      "name": "Lean.Parser.Term.byTactic",
+      "goalsBefore": ["a b c : Nat\nh₁ : a = b\nh₂ : b = c\n⊢ a = c"],
+      "goalsAfter": []},
+     "kind": "TacticInfo",
+     "children":
+     [{"node":
+       {"stx":
+        {"range":
+         {"synthetic": false,
+          "start": {"line": 1, "column": 59},
+          "finish": {"line": 1, "column": 61}},
+         "pp": "<failed to pretty print>"},
+        "name": null,
+        "goalsBefore": ["a b c : Nat\nh₁ : a = b\nh₂ : b = c\n⊢ a = c"],
+        "goalsAfter": []},
+       "kind": "TacticInfo",
+       "children":
+       [{"node":
+         {"stx":
+          {"range":
+           {"synthetic": false,
+            "start": {"line": 1, "column": 62},
+            "finish": {"line": 3, "column": 22}},
+           "pp": "calc\n    a = b := by exact h₁\n    _ = c := by exact h₂"},
+          "name": "Lean.Parser.Tactic.tacticSeq",
+          "goalsBefore": ["a b c : Nat\nh₁ : a = b\nh₂ : b = c\n⊢ a = c"],
+          "goalsAfter": []},
+         "kind": "TacticInfo",
+         "children":
+         [{"node":
+           {"stx":
+            {"range":
+             {"synthetic": false,
+              "start": {"line": 1, "column": 62},
+              "finish": {"line": 3, "column": 22}},
+             "pp": "calc\n    a = b := by exact h₁\n    _ = c := by exact h₂"},
+            "name": "Lean.Parser.Tactic.tacticSeq1Indented",
+            "goalsBefore": ["a b c : Nat\nh₁ : a = b\nh₂ : b = c\n⊢ a = c"],
+            "goalsAfter": []},
+           "kind": "TacticInfo",
+           "children":
+           [{"node":
+             {"stx":
+              {"range":
+               {"synthetic": false,
+                "start": {"line": 1, "column": 62},
+                "finish": {"line": 3, "column": 22}},
+               "pp": "calc\n  a = b := by exact h₁\n  _ = c := by exact h₂"},
+              "name": "calcTactic",
+              "goalsBefore": ["a b c : Nat\nh₁ : a = b\nh₂ : b = c\n⊢ a = c"],
+              "goalsAfter": []},
+             "kind": "TacticInfo",
+             "children":
+             [{"node":
+               {"stx":
+                {"range":
+                 {"synthetic": false,
+                  "start": {"line": 2, "column": 2},
+                  "finish": {"line": 2, "column": 7}},
+                 "pp": "a = b"},
+                "isBinder": false,
+                "expr": "a = b",
+                "expectedType": "Sort ?u.26",
+                "elaborator": "«_aux_Init_Notation___macroRules_term_=__2»"},
+               "kind": "TermInfo",
+               "children":
+               [{"node": null,
+                 "kind": "MacroExpansionInfo",
+                 "children":
+                 [{"node":
+                   {"stx":
+                    {"range":
+                     {"synthetic": true,
+                      "start": {"line": 2, "column": 2},
+                      "finish": {"line": 2, "column": 7}},
+                     "pp": "binrel% Eq✝ a b"},
+                    "isBinder": false,
+                    "expr": "a = b",
+                    "expectedType": "Sort ?u.26",
+                    "elaborator": "Lean.Elab.Term.Op.elabBinRel"},
+                   "kind": "TermInfo",
+                   "children":
+                   [{"node":
+                     {"stx":
+                      {"range":
+                       {"synthetic": true,
+                        "start": {"line": 2, "column": 2},
+                        "finish": {"line": 2, "column": 7}},
+                       "pp": "binrel% Eq✝ a b"},
+                      "isBinder": false,
+                      "expr": "a = b",
+                      "elaborator": null},
+                     "kind": "TermInfo",
+                     "children":
+                     [{"node": null, "kind": "CompletionInfo", "children": []},
+                      {"node":
+                       {"stx":
+                        {"range":
+                         {"synthetic": false,
+                          "start": {"line": 2, "column": 2},
+                          "finish": {"line": 2, "column": 3}},
+                         "pp": "a"},
+                        "isBinder": false,
+                        "expr": "a",
+                        "elaborator": "Lean.Elab.Term.elabIdent"},
+                       "kind": "TermInfo",
+                       "children":
+                       [{"node": null,
+                         "kind": "CompletionInfo",
+                         "children": []},
+                        {"node":
+                         {"stx":
+                          {"range":
+                           {"synthetic": false,
+                            "start": {"line": 2, "column": 2},
+                            "finish": {"line": 2, "column": 3}},
+                           "pp": "a"},
+                          "isBinder": false,
+                          "expr": "a",
+                          "elaborator": null},
+                         "kind": "TermInfo",
+                         "children": []}]},
+                      {"node":
+                       {"stx":
+                        {"range":
+                         {"synthetic": false,
+                          "start": {"line": 2, "column": 6},
+                          "finish": {"line": 2, "column": 7}},
+                         "pp": "b"},
+                        "isBinder": false,
+                        "expr": "b",
+                        "elaborator": "Lean.Elab.Term.elabIdent"},
+                       "kind": "TermInfo",
+                       "children":
+                       [{"node": null,
+                         "kind": "CompletionInfo",
+                         "children": []},
+                        {"node":
+                         {"stx":
+                          {"range":
+                           {"synthetic": false,
+                            "start": {"line": 2, "column": 6},
+                            "finish": {"line": 2, "column": 7}},
+                           "pp": "b"},
+                          "isBinder": false,
+                          "expr": "b",
+                          "elaborator": null},
+                         "kind": "TermInfo",
+                         "children": []}]}]}]}]}]},
+              {"node":
+               {"stx":
+                {"range":
+                 {"synthetic": false,
+                  "start": {"line": 2, "column": 11},
+                  "finish": {"line": 2, "column": 22}},
+                 "pp": "by exact h₁"},
+                "name": "Lean.Parser.Term.byTactic",
+                "goalsBefore": ["a b c : Nat\nh₁ : a = b\nh₂ : b = c\n⊢ a = b"],
+                "goalsAfter": []},
+               "kind": "TacticInfo",
+               "children":
+               [{"node":
+                 {"stx":
+                  {"range":
+                   {"synthetic": false,
+                    "start": {"line": 2, "column": 11},
+                    "finish": {"line": 2, "column": 13}},
+                   "pp": "<failed to pretty print>"},
+                  "name": null,
+                  "goalsBefore":
+                  ["a b c : Nat\nh₁ : a = b\nh₂ : b = c\n⊢ a = b"],
+                  "goalsAfter": []},
+                 "kind": "TacticInfo",
+                 "children":
+                 [{"node":
+                   {"stx":
+                    {"range":
+                     {"synthetic": false,
+                      "start": {"line": 2, "column": 14},
+                      "finish": {"line": 2, "column": 22}},
+                     "pp": "exact h₁"},
+                    "name": "Lean.Parser.Tactic.tacticSeq",
+                    "goalsBefore":
+                    ["a b c : Nat\nh₁ : a = b\nh₂ : b = c\n⊢ a = b"],
+                    "goalsAfter": []},
+                   "kind": "TacticInfo",
+                   "children":
+                   [{"node":
+                     {"stx":
+                      {"range":
+                       {"synthetic": false,
+                        "start": {"line": 2, "column": 14},
+                        "finish": {"line": 2, "column": 22}},
+                       "pp": "exact h₁"},
+                      "name": "Lean.Parser.Tactic.tacticSeq1Indented",
+                      "goalsBefore":
+                      ["a b c : Nat\nh₁ : a = b\nh₂ : b = c\n⊢ a = b"],
+                      "goalsAfter": []},
+                     "kind": "TacticInfo",
+                     "children":
+                     [{"node":
+                       {"stx":
+                        {"range":
+                         {"synthetic": false,
+                          "start": {"line": 2, "column": 14},
+                          "finish": {"line": 2, "column": 22}},
+                         "pp": "exact h₁"},
+                        "name": "Lean.Parser.Tactic.exact",
+                        "goalsBefore":
+                        ["a b c : Nat\nh₁ : a = b\nh₂ : b = c\n⊢ a = b"],
+                        "goalsAfter": []},
+                       "kind": "TacticInfo",
+                       "children":
+                       [{"node":
+                         {"stx":
+                          {"range":
+                           {"synthetic": false,
+                            "start": {"line": 2, "column": 20},
+                            "finish": {"line": 2, "column": 22}},
+                           "pp": "h₁"},
+                          "isBinder": false,
+                          "expr": "h₁",
+                          "expectedType": "a = b",
+                          "elaborator": "Lean.Elab.Term.elabIdent"},
+                         "kind": "TermInfo",
+                         "children":
+                         [{"node": null,
+                           "kind": "CompletionInfo",
+                           "children": []},
+                          {"node":
+                           {"stx":
+                            {"range":
+                             {"synthetic": false,
+                              "start": {"line": 2, "column": 20},
+                              "finish": {"line": 2, "column": 22}},
+                             "pp": "h₁"},
+                            "isBinder": false,
+                            "expr": "h₁",
+                            "expectedType": "a = b",
+                            "elaborator": null},
+                           "kind": "TermInfo",
+                           "children": []}]}]}]}]}]}]},
+              {"node":
+               {"stx":
+                {"range":
+                 {"synthetic": true,
+                  "start": {"line": 1, "column": 62},
+                  "finish": {"line": 3, "column": 22}},
+                 "pp": "?m✝"},
+                "isBinder": false,
+                "expr": "Nat",
+                "expectedType": "Type",
+                "elaborator": "Lean.Elab.Term.elabSyntheticHole"},
+               "kind": "TermInfo",
+               "children": []},
+              {"node":
+               {"stx":
+                {"range":
+                 {"synthetic": true,
+                  "start": {"line": 1, "column": 62},
+                  "finish": {"line": 3, "column": 7}},
+                 "pp": "(_ : ?m✝) = c"},
+                "isBinder": false,
+                "expr": "b = c",
+                "expectedType": "Sort ?u.31",
+                "elaborator": "«_aux_Init_Notation___macroRules_term_=__2»"},
+               "kind": "TermInfo",
+               "children":
+               [{"node": null,
+                 "kind": "MacroExpansionInfo",
+                 "children":
+                 [{"node":
+                   {"stx":
+                    {"range":
+                     {"synthetic": true,
+                      "start": {"line": 1, "column": 62},
+                      "finish": {"line": 3, "column": 7}},
+                     "pp": "binrel% Eq✝ (_ : ?m✝) c"},
+                    "isBinder": false,
+                    "expr": "b = c",
+                    "expectedType": "Sort ?u.31",
+                    "elaborator": "Lean.Elab.Term.Op.elabBinRel"},
+                   "kind": "TermInfo",
+                   "children":
+                   [{"node":
+                     {"stx":
+                      {"range":
+                       {"synthetic": true,
+                        "start": {"line": 1, "column": 62},
+                        "finish": {"line": 3, "column": 7}},
+                       "pp": "binrel% Eq✝ (_ : ?m✝) c"},
+                      "isBinder": false,
+                      "expr": "b = c",
+                      "elaborator": null},
+                     "kind": "TermInfo",
+                     "children":
+                     [{"node": null, "kind": "CompletionInfo", "children": []},
+                      {"node":
+                       {"stx":
+                        {"range":
+                         {"synthetic": true,
+                          "start": {"line": 1, "column": 62},
+                          "finish": {"line": 3, "column": 22}},
+                         "pp": "(_ : ?m✝)"},
+                        "isBinder": false,
+                        "expr": "b",
+                        "elaborator": "Lean.Elab.Term.elabTypeAscription"},
+                       "kind": "TermInfo",
+                       "children":
+                       [{"node":
+                         {"stx":
+                          {"range":
+                           {"synthetic": true,
+                            "start": {"line": 1, "column": 62},
+                            "finish": {"line": 3, "column": 22}},
+                           "pp": "?m✝"},
+                          "isBinder": false,
+                          "expr": "Nat",
+                          "expectedType": "Sort ?u.33",
+                          "elaborator": "Lean.Elab.Term.elabSyntheticHole"},
+                         "kind": "TermInfo",
+                         "children": []},
+                        {"node":
+                         {"stx":
+                          {"range":
+                           {"synthetic": false,
+                            "start": {"line": 3, "column": 2},
+                            "finish": {"line": 3, "column": 3}},
+                           "pp": "_"},
+                          "isBinder": false,
+                          "expr": "b",
+                          "expectedType": "Nat",
+                          "elaborator": "Lean.Elab.Term.elabHole"},
+                         "kind": "TermInfo",
+                         "children": []}]},
+                      {"node":
+                       {"stx":
+                        {"range":
+                         {"synthetic": false,
+                          "start": {"line": 3, "column": 6},
+                          "finish": {"line": 3, "column": 7}},
+                         "pp": "c"},
+                        "isBinder": false,
+                        "expr": "c",
+                        "elaborator": "Lean.Elab.Term.elabIdent"},
+                       "kind": "TermInfo",
+                       "children":
+                       [{"node": null,
+                         "kind": "CompletionInfo",
+                         "children": []},
+                        {"node":
+                         {"stx":
+                          {"range":
+                           {"synthetic": false,
+                            "start": {"line": 3, "column": 6},
+                            "finish": {"line": 3, "column": 7}},
+                           "pp": "c"},
+                          "isBinder": false,
+                          "expr": "c",
+                          "elaborator": null},
+                         "kind": "TermInfo",
+                         "children": []}]}]}]}]}]},
+              {"node":
+               {"stx":
+                {"range":
+                 {"synthetic": false,
+                  "start": {"line": 3, "column": 11},
+                  "finish": {"line": 3, "column": 22}},
+                 "pp": "by exact h₂"},
+                "name": "Lean.Parser.Term.byTactic",
+                "goalsBefore": ["a b c : Nat\nh₁ : a = b\nh₂ : b = c\n⊢ b = c"],
+                "goalsAfter": []},
+               "kind": "TacticInfo",
+               "children":
+               [{"node":
+                 {"stx":
+                  {"range":
+                   {"synthetic": false,
+                    "start": {"line": 3, "column": 11},
+                    "finish": {"line": 3, "column": 13}},
+                   "pp": "<failed to pretty print>"},
+                  "name": null,
+                  "goalsBefore":
+                  ["a b c : Nat\nh₁ : a = b\nh₂ : b = c\n⊢ b = c"],
+                  "goalsAfter": []},
+                 "kind": "TacticInfo",
+                 "children":
+                 [{"node":
+                   {"stx":
+                    {"range":
+                     {"synthetic": false,
+                      "start": {"line": 3, "column": 14},
+                      "finish": {"line": 3, "column": 22}},
+                     "pp": "exact h₂"},
+                    "name": "Lean.Parser.Tactic.tacticSeq",
+                    "goalsBefore":
+                    ["a b c : Nat\nh₁ : a = b\nh₂ : b = c\n⊢ b = c"],
+                    "goalsAfter": []},
+                   "kind": "TacticInfo",
+                   "children":
+                   [{"node":
+                     {"stx":
+                      {"range":
+                       {"synthetic": false,
+                        "start": {"line": 3, "column": 14},
+                        "finish": {"line": 3, "column": 22}},
+                       "pp": "exact h₂"},
+                      "name": "Lean.Parser.Tactic.tacticSeq1Indented",
+                      "goalsBefore":
+                      ["a b c : Nat\nh₁ : a = b\nh₂ : b = c\n⊢ b = c"],
+                      "goalsAfter": []},
+                     "kind": "TacticInfo",
+                     "children":
+                     [{"node":
+                       {"stx":
+                        {"range":
+                         {"synthetic": false,
+                          "start": {"line": 3, "column": 14},
+                          "finish": {"line": 3, "column": 22}},
+                         "pp": "exact h₂"},
+                        "name": "Lean.Parser.Tactic.exact",
+                        "goalsBefore":
+                        ["a b c : Nat\nh₁ : a = b\nh₂ : b = c\n⊢ b = c"],
+                        "goalsAfter": []},
+                       "kind": "TacticInfo",
+                       "children":
+                       [{"node":
+                         {"stx":
+                          {"range":
+                           {"synthetic": false,
+                            "start": {"line": 3, "column": 20},
+                            "finish": {"line": 3, "column": 22}},
+                           "pp": "h₂"},
+                          "isBinder": false,
+                          "expr": "h₂",
+                          "expectedType": "b = c",
+                          "elaborator": "Lean.Elab.Term.elabIdent"},
+                         "kind": "TermInfo",
+                         "children":
+                         [{"node": null,
+                           "kind": "CompletionInfo",
+                           "children": []},
+                          {"node":
+                           {"stx":
+                            {"range":
+                             {"synthetic": false,
+                              "start": {"line": 3, "column": 20},
+                              "finish": {"line": 3, "column": 22}},
+                             "pp": "h₂"},
+                            "isBinder": false,
+                            "expr": "h₂",
+                            "expectedType": "b = c",
+                            "elaborator": null},
+                           "kind": "TermInfo",
+                           "children": []}]}]}]}]}]}]}]}]}]}]}]},
+    {"node":
+     {"stx":
+      {"range":
+       {"synthetic": false,
+        "start": {"line": 1, "column": 0},
+        "finish": {"line": 1, "column": 7}},
+       "pp": null},
+      "isBinder": true,
+      "expr": "@_example",
+      "elaborator": null},
+     "kind": "TermInfo",
+     "children": []}]},
+  {"node":
+   {"stx":
+    {"range":
+     {"synthetic": false,
+      "start": {"line": 4, "column": 0},
+      "finish": {"line": 4, "column": 0}},
+     "pp": ""},
+    "elaborator": "Lean.Elab.Command.elabEoi"},
+   "kind": "CommmandInfo",
+   "children": []}],
+ "name": "Examples.calc"}

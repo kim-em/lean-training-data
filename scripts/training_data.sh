@@ -22,7 +22,7 @@ done
 if [ ${#ARGS[@]} -eq 0 ]; then
   rm -f ./build/lake.lock
   lake build training_data
-  parallel -j32 ./scripts/training_data.sh ${FLAGS[@]} -- `cat lake-packages/mathlib/Mathlib.lean | sed -e 's/import //'`
+  parallel -j32 ./scripts/training_data.sh ${FLAGS[@]} -- ::: `cat lake-packages/mathlib/Mathlib.lean | sed -e 's/import //'`
 else
   DIR=out/training_data
   mkdir -p $DIR

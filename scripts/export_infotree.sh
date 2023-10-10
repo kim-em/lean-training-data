@@ -22,7 +22,7 @@ done
 if [ ${#ARGS[@]} -eq 0 ]; then
   rm -f ./build/lake.lock
   lake build export_infotree
-  parallel -j32 ./scripts/export_infotree.sh ${FLAGS[@]} -- `cat lake-packages/mathlib/Mathlib.lean | sed -e 's/import //'`
+  parallel -j32 ./scripts/export_infotree.sh ${FLAGS[@]} -- ::: `cat lake-packages/mathlib/Mathlib.lean | sed -e 's/import //'`
 else
   DIR=out/export_infotree
   mkdir -p $DIR
@@ -33,6 +33,5 @@ else
       lake build export_infotree
     fi
     build/bin/export_infotree ${FLAGS[@]} $mod > $DIR/$mod._json && mv $DIR/$mod._json $DIR/$mod.json
-    # build/bin/export_infotree $mod > $DIR/$mod._json && mv $DIR/$mod._json $DIR/$mod.json
   fi
 fi

@@ -8,7 +8,7 @@
 if [ "$#" -eq 1 ]; then
   rm -f ./build/lake.lock
   lake build tactic_benchmark
-  parallel -j32 ./scripts/tactic_benchmark.sh $1 -- `cat lake-packages/mathlib/Mathlib.lean | sed -e 's/import //'`
+  parallel -j32 ./scripts/tactic_benchmark.sh $1 -- ::: `cat lake-packages/mathlib/Mathlib.lean | sed -e 's/import //'`
 else
   DIR=out/tactic_benchmark/${1#--}
   mkdir -p $DIR

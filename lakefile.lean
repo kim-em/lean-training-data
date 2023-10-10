@@ -11,6 +11,8 @@ require mathlib from git
 @[default_target]
 lean_lib TrainingData where
 
+lean_lib Examples where
+
 lean_exe tactic_benchmark where
   root := `scripts.tactic_benchmark
   supportInterpreter := true
