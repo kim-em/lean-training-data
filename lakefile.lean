@@ -30,6 +30,11 @@ lean_exe training_data where
   supportInterpreter := true
 
 @[default_target]
+lean_exe comment_data where
+  root := `scripts.comment_data
+  supportInterpreter := true
+
+@[default_target]
 lean_exe premises where
   root := `scripts.premises
 

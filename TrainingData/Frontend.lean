@@ -81,6 +81,8 @@ the `src : Substring` and `stx : Syntax` of the command,
 and any `Message`s and `InfoTree`s produced while processing.
 -/
 structure CompilationStep where
+  fileName : String
+  fileMap : FileMap
   src : Substring
   stx : Syntax
   before : Environment
@@ -104,7 +106,8 @@ def one : FrontendM (CompilationStep × Bool) := do
   let after := s'.env
   let msgs := s'.messages.msgs.drop s.messages.msgs.size
   let trees := s'.infoState.trees.drop s.infoState.trees.size
-  return ({ src, stx, before, after, msgs, trees }, done)
+  let ⟨_, fileName, fileMap⟩  := (← read).inputCtx
+  return ({ fileName, fileMap, src, stx, before, after, msgs, trees }, done)
 
 /-- Process all commands in the input. -/
 partial def all : FrontendM (List CompilationStep) := do
@@ -114,10 +117,34 @@ partial def all : FrontendM (List CompilationStep) := do
   else
     return cmd :: (← all)
 
+def runCoreMBefore (c : CompilationStep) (x : CoreM α) : IO α :=
+  (·.1) <$> Core.CoreM.toIO x { fileName := c.fileName, fileMap := c.fileMap } { env := c.before }
+
+open Meta in
+def runMetaMBefore (c : CompilationStep) (x : MetaM α) : IO α :=
+  c.runCoreMBefore <| MetaM.run' x {} {}
+
 /-- Return all new `ConstantInfo`s added during the processed command. -/
 def diff (cmd : CompilationStep) : List ConstantInfo :=
   cmd.after.constants.map₂.toList.filterMap
     fun (c, i) => if cmd.before.constants.map₂.contains c then none else some i
+
+/-- Data extracted from a `ConstantInfo`. -/
+structure DeclInfo where
+  name : Name
+  type : Expr
+  ppType : String
+  docString : Option String
+
+/-- Return info about each new declaration added during the processed command. -/
+def newDecls (cmd : CompilationStep) : IO (List DeclInfo) := do
+  cmd.diff.mapM fun ci =>
+    return {
+      name := ci.name
+      type := ci.type
+      ppType := toString (← cmd.runMetaMBefore <| Meta.ppExpr ci.type)
+      docString := ← findDocString? cmd.after ci.name
+    }
 
 end CompilationStep
 
@@ -188,7 +215,7 @@ open System
 
 -- TODO allow finding Lean 4 sources from the toolchain.
 def findLean (mod : Name) : IO FilePath := do
-  return FilePath.mk ((← findOLean mod).toString.replace "build/lib/" "") |>.withExtension "lean"
+  return FilePath.mk ((← findOLean mod).toString.replace ".lake/build/lib/" "") |>.withExtension "lean"
 
 /-- Implementation of `moduleSource`, which is the cached version of this function. -/
 def moduleSource' (mod : Name) : IO String := do
