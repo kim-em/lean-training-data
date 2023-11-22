@@ -38,7 +38,7 @@ The functions `compileModule : Name → IO (List CompilationStep)` and
 
 set_option autoImplicit true
 
-open Lean Elab Frontend
+open Lean Elab Frontend Meta
 
 namespace Lean.PersistentArray
 
@@ -71,6 +71,22 @@ partial def runStateRefT [Monad m] [MonadLiftT (ST ω) m] (L : MLList (StateRefT
 
 end MLList
 
+private def isInternal' (declName : Name) : Bool :=
+  declName.isInternal ||
+  match declName with
+  | .str _ s => "match_".isPrefixOf s || "proof_".isPrefixOf s
+  | _        => true
+
+-- from Lean.Server.Completion
+private def isBlackListed {m} [Monad m] [MonadEnv m] (declName : Name) : m Bool := do
+  if declName == ``sorryAx then return true
+  if declName matches .str _ "inj" then return true
+  if declName matches .str _ "noConfusionType" then return true
+  let env ← getEnv
+  pure $ isInternal' declName
+   || isAuxRecursor env declName
+   || isNoConfusion env declName
+  <||> isRec declName <||> isMatcher declName
 namespace Lean.Elab.IO
 
 /--
@@ -138,11 +154,13 @@ structure DeclInfo where
 
 /-- Return info about each new declaration added during the processed command. -/
 def newDecls (cmd : CompilationStep) : IO (List DeclInfo) := do
-  cmd.diff.mapM fun ci =>
-    return {
+  cmd.diff.filterMapM fun ci => cmd.runMetaMBefore do
+    if ← isBlackListed ci.name then
+      pure none
+    else pure <| some {
       name := ci.name
       type := ci.type
-      ppType := toString (← cmd.runMetaMBefore <| Meta.ppExpr ci.type)
+      ppType := toString (← Meta.ppExpr ci.type)
       docString := ← findDocString? cmd.after ci.name
     }
 

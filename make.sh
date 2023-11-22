@@ -9,6 +9,8 @@
 DATE=`date "+%Y-%m-%d"`
 mkdir -p out
 
+lake build
+
 lake exe declaration_types > out/$DATE-declaration_types
 gzip -f out/$DATE-declaration_types
 
@@ -35,6 +37,12 @@ rm -rf out/training_data
 ./scripts/training_data.sh --proofstep
 cd out
 tar cvzf $DATE-proof_step.tgz training_data
+cd ..
+
+rm -rf out/comment_data
+./scripts/comment_data.sh
+cd out
+tar cvzf $DATE-comment_data.tgz comment_data
 cd ..
 
 rm -rf out/tactic_benchmark

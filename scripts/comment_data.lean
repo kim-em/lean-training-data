@@ -51,6 +51,7 @@ The output is a json array of dictionaries with fields
 * `docString`: the declaration doc-string, if it is present
 * `decl`: the entire body of the declaration
 * `context`: the file source up to before the declaration
+  (this currently does not include the imports)
 "
 
   ARGS:

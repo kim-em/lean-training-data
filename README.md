@@ -24,6 +24,9 @@ We would like to enable sharing of data and easy access to the Lean libraries fo
 : Export all goal / tactic pairs from the library, with additional context.
   `--proofstep` outputs in `[GOAL]...[PROOFSTEP]...` format.
 
+`comment_data`
+: Export all declaration / type / doc-string tuples from the library, with additional context.
+
 `tactic_benchmark`
 : Run a tactic against every declaration in the library, tracking runtimes and successes.
 
@@ -194,6 +197,21 @@ Here:
 
 There is also `scripts/training_data.sh`, which will run in parallel over all of Mathlib,
 recording results in `out/training_data/`.
+
+### `comment_data`
+
+`lake exe comment_data Mathlib.Logic.Hydra` will output information about all doc-strings in a file.
+
+The output is a json array of dictionaries with fields
+* `declName`: the declaration name
+* `declType`: the pretty-printed type of the declaration
+* `docString`: the declaration doc-string, if it is present
+* `decl`: the entire body of the declaration
+* `context`: the file source up to before the declaration
+  (this currently does not include the imports)
+
+There is also `scripts/comment_data.sh`, which will run in parallel over all of Mathlib,
+recording results in `out/comment_data/`.
 
 ### `tactic_benchmark`
 
