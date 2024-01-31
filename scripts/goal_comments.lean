@@ -1,6 +1,5 @@
 import TrainingData.Frontend
 import TrainingData.InfoTree.ToJson
-import TrainingData.InfoTree.TacticInvocation.Basic
 import Mathlib.Data.String.Defs
 import Mathlib.Lean.CoreM
 import Mathlib.Tactic.Change
@@ -33,12 +32,12 @@ instance : DecidableRel ((· : Range) < ·) := by
   change DecidableRel fun _ _ => _ ∧ _
   infer_instance
 
-namespace Lean.Elab.TacticInvocation
+namespace Lean.Elab.TacticInfo
 
-def rangesAndGoals (i : TacticInvocation) : IO (Range × String) := do
-  return ⟨i.range, (Format.joinSep (← i.goalStateAfter) "\n").pretty 1000000⟩
+def rangesAndGoals (i : TacticInfo) (ctx : ContextInfo) : IO (Range × String) := do
+  return ⟨i.range ctx, (Format.joinSep (← i.goalStateAfter ctx) "\n").pretty 1000000⟩
 
-end Lean.Elab.TacticInvocation
+end Lean.Elab.TacticInfo
 
 partial def dropEnclosed (L : List (Range × String)) : List (Range × String) :=
   let L' := L.filter fun ⟨r, _⟩ => ¬ L.any fun ⟨r', _⟩ => r < r'
@@ -67,7 +66,7 @@ def goalComments (args : Cli.Parsed) : IO UInt32 := do
     trees := trees.bind InfoTree.retainTacticInfo
     trees := trees.bind InfoTree.retainOriginal
     trees := trees.bind InfoTree.retainSubstantive
-    let L₁ ← (trees.bind InfoTree.tactics).mapM TacticInvocation.rangesAndGoals
+    let L₁ ← (trees.bind InfoTree.tactics).mapM fun ⟨i, c⟩ => i.rangesAndGoals c
     let L₂ := dropEnclosed L₁ |>.filter fun ⟨⟨⟨l₁, _⟩, ⟨l₂, _⟩⟩, _⟩  => l₁ = l₂
     let L₃ := (L₂.map fun ⟨r, s⟩ => (r, justTheGoal s)) |>.filter fun ⟨_, s⟩ => s != ""
     let mut src := (← moduleSource module).splitOn "\n"

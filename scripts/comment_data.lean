@@ -1,6 +1,5 @@
 import TrainingData.Frontend
 import TrainingData.InfoTree.ToJson
-import TrainingData.InfoTree.TacticInvocation.Basic
 import Mathlib.Data.String.Defs
 import Mathlib.Lean.CoreM
 import Std.Lean.Util.Path

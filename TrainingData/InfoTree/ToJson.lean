@@ -1,4 +1,4 @@
-import TrainingData.InfoTree.TacticInvocation.Basic
+import TrainingData.InfoTree.Basic
 
 /-!
 # Exporting an `InfoTree` as Json
@@ -53,15 +53,14 @@ deriving ToJson
 
 -- Note: this is not responsible for converting the children to Json.
 def TacticInfo.toJson (i : TacticInfo) (ctx : ContextInfo) : IO TacticInfo.Json := do
-  let I : TacticInvocation := ⟨i, ctx, .empty⟩
   return {
     name := i.name?
     stx :=
-    { pp := Format.pretty (← I.pp),
+    { pp := Format.pretty (← i.pp ctx),
       -- raw := toString i.info.stx,
       range := i.stx.toRange ctx },
-    goalsBefore := (← I.goalState).map Format.pretty,
-    goalsAfter := (← I.goalStateAfter).map Format.pretty }
+    goalsBefore := (← i.goalState ctx).map Format.pretty,
+    goalsAfter := (← i.goalStateAfter ctx).map Format.pretty }
 
 structure CommandInfo.Json where
   elaborator : Option Name

@@ -1,6 +1,5 @@
 import TrainingData.Frontend
 import TrainingData.InfoTree.ToJson
-import TrainingData.InfoTree.TacticInvocation.Basic
 import Mathlib.Data.String.Defs
 import Mathlib.Lean.CoreM
 import Std.Lean.Util.Path
@@ -10,27 +9,27 @@ import Cli
 open Lean Elab IO Meta
 open Cli System
 
-namespace Lean.Elab.TacticInvocation
+namespace Lean.Elab.TacticInfo
 
-def verboseTrainingData (module : Name) (i : TacticInvocation) : IO String := do
+def verboseTrainingData (module : Name) (i : TacticInfo) (ctx : ContextInfo) : IO String := do
   let mut result := "===\n"
   result := result ++ s!"{module}\n---\n"
-  let sourceUpToTactic := Substring.mk (← moduleSource module) 0 (i.info.stx.getPos?.getD 0)
+  let sourceUpToTactic := Substring.mk (← moduleSource module) 0 (i.stx.getPos?.getD 0)
   let chunks := sourceUpToTactic.splitOn "\n\n"
   let declUpToTactic := chunks.getLast!.toString
   let offset := chunks.dropLast.foldl (init := 0) (fun t c => t + (c.toString.count '\n') + 2)
   result := result ++ s!"{offset}\n---\n{declUpToTactic}\n---\n"
-  result := result ++ (Format.joinSep (← i.goalState) "\n").pretty ++ "\n---\n"
-  let ⟨⟨startLine, startCol⟩, ⟨endLine, endCol⟩⟩ := i.range
+  result := result ++ (Format.joinSep (← i.goalState ctx) "\n").pretty ++ "\n---\n"
+  let ⟨⟨startLine, startCol⟩, ⟨endLine, endCol⟩⟩ := i.range ctx
   result := result ++ s!"{startLine}:{startCol}-{endLine}:{endCol}\n---\n"
-  result := result ++ (← i.pp).pretty ++ "\n---\n"
-  result := result ++ (Format.joinSep (← i.goalStateAfter) "\n").pretty ++ "\n---\n"
+  result := result ++ (← i.pp ctx).pretty ++ "\n---\n"
+  result := result ++ (Format.joinSep (← i.goalStateAfter ctx) "\n").pretty ++ "\n---\n"
   return result
 
-def proofStepData (i : TacticInvocation) : IO String := do
-  return "[GOAL]\n" ++ (Format.joinSep (← i.goalState) "\n").pretty ++ "\n[PROOFSTEP]\n" ++ (← i.pp).pretty
+def proofStepData (i : TacticInfo) (ctx : ContextInfo) : IO String := do
+  return "[GOAL]\n" ++ (Format.joinSep (← i.goalState ctx) "\n").pretty ++ "\n[PROOFSTEP]\n" ++ (← i.pp ctx).pretty
 
-end Lean.Elab.TacticInvocation
+end Lean.Elab.TacticInfo
 
 def trainingData (args : Cli.Parsed) : IO UInt32 := do
     searchPathRef.set compile_time_search_path%
@@ -40,11 +39,11 @@ def trainingData (args : Cli.Parsed) : IO UInt32 := do
     trees := trees.bind InfoTree.retainOriginal
     trees := trees.bind InfoTree.retainSubstantive
     for t in trees do
-      for t in t.tactics do
+      for (i, ctx) in t.tactics do
         if args.hasFlag "proofstep" then
-          IO.println (← t.proofStepData)
+          IO.println (← i.proofStepData ctx)
         else
-          IO.println (← t.verboseTrainingData module)
+          IO.println (← i.verboseTrainingData module ctx)
     return 0
 
 /-- Setting up command line options and help text for `lake exe training_data`. -/
