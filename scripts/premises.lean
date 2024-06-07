@@ -1,8 +1,8 @@
 import Mathlib.Lean.CoreM
 import Mathlib.Control.Basic
 import Mathlib.Lean.Expr.Basic
-import Std.Lean.HashMap
-import Std.Lean.Util.Path
+import Batteries.Lean.HashMap
+import Batteries.Lean.Util.Path
 
 /-!
 Generate declaration dependencies up to a target file (defaulting to all of Mathlib).
@@ -114,11 +114,11 @@ def main (args : List String) : IO UInt32 := do
     for (n, (d, u)) in allConstants do
       match n.components with
       -- Note we keep `Std` as it has many lemmas about numbers and data structures.
-      | "Lean" :: _
-      | "Qq" :: _
-      | "Cli" :: _
-      | "Aesop" :: _ => continue
-      | components => if components.contains "Tactic" then continue
+      | `Lean :: _
+      | `Qq :: _
+      | `Cli :: _
+      | `Aesop :: _ => continue
+      | components => if components.contains `Tactic then continue
       let explicit := explicitConstants.find? n |>.getD ∅
       IO.println "---"
       IO.println n

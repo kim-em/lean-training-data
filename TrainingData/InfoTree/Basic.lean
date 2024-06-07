@@ -29,6 +29,7 @@ def kind : Info → String
   | .ofCustomInfo         _ => "CustomInfo"
   | .ofFVarAliasInfo      _ => "FVarAliasInfo"
   | .ofFieldRedeclInfo    _ => "FieldRedeclInfo"
+  | .ofOmissionInfo       _ => "OmissionInfo"
 
 /-- The `Syntax` for a `Lean.Elab.Info`, if there is one. -/
 def stx? : Info → Option Syntax
@@ -43,6 +44,7 @@ def stx? : Info → Option Syntax
   | .ofCustomInfo         info => info.stx
   | .ofFVarAliasInfo      _    => none
   | .ofFieldRedeclInfo    info => info.stx
+  | .ofOmissionInfo       info => info.stx
 
 /-- Is the `Syntax` for this `Lean.Elab.Info` original, or synthetic? -/
 def isOriginal (i : Info) : Bool :=
@@ -148,12 +150,12 @@ def elabDecl? (t : InfoTree) : Option Name :=
   | _ => none
 
 /-- Analogue of `Lean.Elab.InfoTree.findInfo?`, but that returns a list of all results. -/
-partial def findAllInfo (t : InfoTree) (ctx : Option ContextInfo) (p : Info → Bool) :
+partial def findAllInfo (t : InfoTree) (ctx? : Option ContextInfo) (p : Info → Bool) :
     List (Info × Option ContextInfo × PersistentArray InfoTree) :=
   match t with
-  | context ctx t => t.findAllInfo ctx p
+  | context ctx t => t.findAllInfo (ctx.mergeIntoOuter? ctx?) p
   | node i ts  =>
-      (if p i then [(i, ctx, ts)] else []) ++ ts.toList.bind (fun t => t.findAllInfo ctx p)
+      (if p i then [(i, ctx?, ts)] else []) ++ ts.toList.bind (fun t => t.findAllInfo ctx? p)
   | _ => []
 
 /-- Return all `TacticInfo` nodes in an `InfoTree` corresponding to tactics,

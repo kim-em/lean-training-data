@@ -4,8 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Scott Morrison
 -/
 import Lean.Elab.Frontend
-import Std.Util.TermUnsafe
-import Std.Data.MLList.Basic
+import Batteries.Data.MLList.Basic
 
 /-!
 # Compiling Lean sources to obtain `Environment`, `Message`s and `InfoTree`s.
@@ -120,7 +119,7 @@ def one : FrontendM (CompilationStep × Bool) := do
   let src := ⟨(← read).inputCtx.input, (← get).cmdPos, (← get).parserState.pos⟩
   let s' := (← get).commandState
   let after := s'.env
-  let msgs := s'.messages.msgs.drop s.messages.msgs.size
+  let msgs := s'.messages.toList.drop s.messages.toList.length
   let trees := s'.infoState.trees.drop s.infoState.trees.size
   let ⟨_, fileName, fileMap⟩  := (← read).inputCtx
   return ({ fileName, fileMap, src, stx, before, after, msgs, trees }, done)

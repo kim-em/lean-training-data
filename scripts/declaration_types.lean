@@ -1,7 +1,7 @@
 import Mathlib.Lean.CoreM
 import Mathlib.Lean.Expr.Basic
-import Std.Lean.Util.Path
-import Std.Lean.HashMap
+import Batteries.Lean.Util.Path
+import Batteries.Lean.HashMap
 
 open Lean Meta
 
