@@ -61,6 +61,12 @@ structure Result where
   seconds : Float
   heartbeats : Nat
 
+def withSeconds [Monad m] [MonadLiftT BaseIO m] (act : m α) : m (α × Float) := do
+  let start ← IO.monoNanosNow
+  let a ← act
+  let stop ← IO.monoNanosNow
+  return (a, (stop - start).toFloat / 1000000000)
+
 /--
 Compile the designated module, select declarations satisfying a predicate,
 and run a tactic on the type of each declaration.
