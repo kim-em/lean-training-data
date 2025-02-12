@@ -112,7 +112,7 @@ open Cli System
 
 def tacticBenchmarkMain (args : Cli.Parsed) : IO UInt32 := do
   let module := args.positionalArg! "module" |>.as! ModuleName
-  searchPathRef.set compile_time_search_path%
+  initSearchPath (← findSysroot)
   let tac ←
     if args.hasFlag "aesop" then pure useAesop else
     if args.hasFlag "exact" then pure useExact? else

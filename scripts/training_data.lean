@@ -32,7 +32,7 @@ def proofStepData (i : TacticInfo) (ctx : ContextInfo) : IO String := do
 end Lean.Elab.TacticInfo
 
 def trainingData (args : Cli.Parsed) : IO UInt32 := do
-    searchPathRef.set compile_time_search_path%
+    initSearchPath (← findSysroot)
     let module := args.positionalArg! "module" |>.as! ModuleName
     let mut trees ← moduleInfoTrees module
     trees := trees.bind InfoTree.retainTacticInfo

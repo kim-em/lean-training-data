@@ -14,7 +14,7 @@ structure InfoTreeExport where
 deriving ToJson
 
 def exportInfoTree (args : Cli.Parsed) : IO UInt32 := do
-    searchPathRef.set compile_time_search_path%
+    initSearchPath (← findSysroot)
     let target := args.positionalArg! "module" |>.as! ModuleName
     let mut trees ← moduleInfoTrees target
     if args.hasFlag "tactics" then

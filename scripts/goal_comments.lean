@@ -60,7 +60,7 @@ def justTheGoal (s : String) : String :=
 def String.indent (s : String) (k : Nat) : String := ⟨List.replicate k ' '⟩ ++ s
 
 def goalComments (args : Cli.Parsed) : IO UInt32 := do
-    searchPathRef.set compile_time_search_path%
+    initSearchPath (← findSysroot)
     let module := args.positionalArg! "module" |>.as! ModuleName
     let mut trees ← moduleInfoTrees module
     trees := trees.bind InfoTree.retainTacticInfo

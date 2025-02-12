@@ -32,7 +32,7 @@ def addStep (data : String × List CommentData) (step : CompilationStep) :
   return (context, next ++ prev)
 
 def commentData (args : Cli.Parsed) : IO UInt32 := do
-    searchPathRef.set compile_time_search_path%
+    initSearchPath (← findSysroot)
     let module := args.positionalArg! "module" |>.as! ModuleName
     let steps ← compileModule module
     let (_, data) ← steps.foldlM (init := ("", [])) addStep
