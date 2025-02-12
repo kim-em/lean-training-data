@@ -238,13 +238,13 @@ def findLean (mod : Name) : IO FilePath := do
 def moduleSource' (mod : Name) : IO String := do
   IO.FS.readFile (← findLean mod)
 
-initialize sourceCache : IO.Ref <| HashMap Name String ←
+initialize sourceCache : IO.Ref <| Std.HashMap Name String ←
   IO.mkRef .empty
 
 /-- Read the source code of the named module. The results are cached. -/
 def moduleSource (mod : Name) : IO String := do
   let m ← sourceCache.get
-  match m.find? mod with
+  match m[mod]? with
   | some r => return r
   | none => do
     let v ← moduleSource' mod
@@ -255,7 +255,7 @@ def moduleSource (mod : Name) : IO String := do
 def compileModule' (mod : Name) : MLList IO CompilationStep := do
   Lean.Elab.IO.processInput' (← moduleSource mod) none {} (← findLean mod).toString
 
-initialize compilationCache : IO.Ref <| HashMap Name (List CompilationStep) ←
+initialize compilationCache : IO.Ref <| Std.HashMap Name (List CompilationStep) ←
   IO.mkRef .empty
 
 /--
@@ -268,7 +268,7 @@ you should check all compiled files for error messages if attempting this.
 -/
 def compileModule (mod : Name) : IO (List CompilationStep) := do
   let m ← compilationCache.get
-  match m.find? mod with
+  match m[mod]? with
   | some r => return r
   | none => do
     let v ← compileModule' mod |>.force

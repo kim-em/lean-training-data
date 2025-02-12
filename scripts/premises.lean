@@ -22,13 +22,13 @@ def isAuxLemma : Name → Bool
 | _ => false
 
 partial def Lean.ConstantInfo.getUsedConstants' (c : ConstantInfo)
-    (constantsMap : HashMap Name ConstantInfo)
+    (constantsMap : Std.HashMap Name ConstantInfo)
     (unfolding : Name → Bool := isAuxLemma) : NameSet × NameSet := Id.run do
   let mut direct : NameSet := ∅
   let mut unfolded : NameSet := ∅
   for n in c.getUsedConstantsAsSet do
     if unfolding n then
-      if let some c := constantsMap.find? n then
+      if let some c := constantsMap[n]? then
         unfolded := unfolded ++ c.getUsedConstantsAsSet
     else
       direct := direct.insert n
