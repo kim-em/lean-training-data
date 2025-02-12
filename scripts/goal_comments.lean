@@ -74,7 +74,7 @@ def goalComments (args : Cli.Parsed) : IO UInt32 := do
     for ⟨⟨⟨l, c⟩, _⟩, s⟩ in L₃.reverse do
       let toInsert := ("-- " ++ s).indent c
       if src.get? l ≠ toInsert then
-        src := src.insertNth l toInsert
+        src := src.insertIdx l toInsert
     let out := ("\n".intercalate src)
     if args.hasFlag "edit" then
       IO.FS.writeFile (← findLean module) out
