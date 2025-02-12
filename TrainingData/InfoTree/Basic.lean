@@ -21,6 +21,7 @@ def kind : Info → String
   | .ofTacticInfo         _ => "TacticInfo"
   | .ofPartialTermInfo    _ => "PartialTermInfo"
   | .ofTermInfo           _ => "TermInfo"
+  | .ofDelabTermInfo      _ => "DelabTermInfo"
   | .ofChoiceInfo         _ => "ChoiceInfo"
   | .ofCommandInfo        _ => "CommmandInfo"
   | .ofMacroExpansionInfo _ => "MacroExpansionInfo"
@@ -31,13 +32,13 @@ def kind : Info → String
   | .ofCustomInfo         _ => "CustomInfo"
   | .ofFVarAliasInfo      _ => "FVarAliasInfo"
   | .ofFieldRedeclInfo    _ => "FieldRedeclInfo"
-  | .ofOmissionInfo       _ => "OmissionInfo"
 
 /-- The `Syntax` for a `Lean.Elab.Info`, if there is one. -/
 def stx? : Info → Option Syntax
   | .ofTacticInfo         info => info.stx
   | .ofPartialTermInfo    info => info.stx
   | .ofTermInfo           info => info.stx
+  | .ofDelabTermInfo      info => info.stx
   | .ofChoiceInfo         info => info.stx
   | .ofCommandInfo        info => info.stx
   | .ofMacroExpansionInfo info => info.stx
@@ -48,7 +49,6 @@ def stx? : Info → Option Syntax
   | .ofCustomInfo         info => info.stx
   | .ofFVarAliasInfo      _    => none
   | .ofFieldRedeclInfo    info => info.stx
-  | .ofOmissionInfo       info => info.stx
 
 /-- Is the `Syntax` for this `Lean.Elab.Info` original, or synthetic? -/
 def isOriginal (i : Info) : Bool :=
