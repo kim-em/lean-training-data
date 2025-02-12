@@ -1,0 +1,45 @@
+name = "«lean-training-data»"
+defaultTargets = ["TrainingData", "Examples", "tactic_benchmark", "export_infotree", "training_data", "comment_data", "premises", "declaration_types", "goal_comments"]
+
+[[require]]
+name = "mathlib"
+git = "https://github.com/leanprover-community/mathlib4.git"
+rev = "v4.9.0"
+
+[[lean_lib]]
+name = "TrainingData"
+
+[[lean_lib]]
+name = "Examples"
+
+[[lean_exe]]
+name = "tactic_benchmark"
+root = "scripts.tactic_benchmark"
+supportInterpreter = true
+
+[[lean_exe]]
+name = "export_infotree"
+root = "scripts.export_infotree"
+supportInterpreter = true
+
+[[lean_exe]]
+name = "training_data"
+root = "scripts.training_data"
+supportInterpreter = true
+
+[[lean_exe]]
+name = "comment_data"
+root = "scripts.comment_data"
+supportInterpreter = true
+
+[[lean_exe]]
+name = "premises"
+root = "scripts.premises"
+
+[[lean_exe]]
+name = "declaration_types"
+root = "scripts.declaration_types"
+
+[[lean_exe]]
+name = "goal_comments"
+root = "scripts.goal_comments"
