@@ -19,7 +19,9 @@ namespace Lean.Elab.Info
 /-- The type of a `Lean.Elab.Info`, as a string. -/
 def kind : Info → String
   | .ofTacticInfo         _ => "TacticInfo"
+  | .ofPartialTermInfo    _ => "PartialTermInfo"
   | .ofTermInfo           _ => "TermInfo"
+  | .ofChoiceInfo         _ => "ChoiceInfo"
   | .ofCommandInfo        _ => "CommmandInfo"
   | .ofMacroExpansionInfo _ => "MacroExpansionInfo"
   | .ofOptionInfo         _ => "OptionInfo"
@@ -34,7 +36,9 @@ def kind : Info → String
 /-- The `Syntax` for a `Lean.Elab.Info`, if there is one. -/
 def stx? : Info → Option Syntax
   | .ofTacticInfo         info => info.stx
+  | .ofPartialTermInfo    info => info.stx
   | .ofTermInfo           info => info.stx
+  | .ofChoiceInfo         info => info.stx
   | .ofCommandInfo        info => info.stx
   | .ofMacroExpansionInfo info => info.stx
   | .ofOptionInfo         info => info.stx
