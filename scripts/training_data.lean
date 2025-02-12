@@ -34,9 +34,9 @@ def trainingData (args : Cli.Parsed) : IO UInt32 := do
     initSearchPath (← findSysroot)
     let module := args.positionalArg! "module" |>.as! ModuleName
     let mut trees ← moduleInfoTrees module
-    trees := trees.bind InfoTree.retainTacticInfo
-    trees := trees.bind InfoTree.retainOriginal
-    trees := trees.bind InfoTree.retainSubstantive
+    trees := trees.flatMap InfoTree.retainTacticInfo
+    trees := trees.flatMap InfoTree.retainOriginal
+    trees := trees.flatMap InfoTree.retainSubstantive
     for t in trees do
       for (i, ctx) in t.tactics do
         if args.hasFlag "proofstep" then

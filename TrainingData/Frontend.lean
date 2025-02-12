@@ -115,7 +115,7 @@ def one : FrontendM (CompilationStep × Bool) := do
   let s := (← get).commandState
   let before := s.env
   let done ← processCommand
-  let stx := (← get).commands.back
+  let stx := (← get).commands.back!
   let src := ⟨(← read).inputCtx.input, (← get).cmdPos, (← get).parserState.pos⟩
   let s' := (← get).commandState
   let after := s'.env
@@ -226,7 +226,7 @@ def processInput (input : String) (env? : Option Environment := none)
   match steps.getLast? with
   | none => throw <| IO.userError "No commands found in input."
   | some { after, .. } =>
-    return (after, steps.bind CompilationStep.msgs, steps.bind CompilationStep.trees)
+    return (after, steps.flatMap CompilationStep.msgs, steps.flatMap CompilationStep.trees)
 
 open System
 
@@ -278,4 +278,4 @@ def compileModule (mod : Name) : IO (List CompilationStep) := do
 /-- Compile the source file for the named module, returning all info trees. -/
 def moduleInfoTrees (mod : Name) : IO (List InfoTree) := do
   let steps ← compileModule mod
-  return steps.bind (fun c => c.trees)
+  return steps.flatMap (fun c => c.trees)

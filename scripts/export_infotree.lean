@@ -17,11 +17,11 @@ def exportInfoTree (args : Cli.Parsed) : IO UInt32 := do
     let target := args.positionalArg! "module" |>.as! ModuleName
     let mut trees ← moduleInfoTrees target
     if args.hasFlag "tactics" then
-      trees := (trees.map InfoTree.retainTacticInfo).join
+      trees := (trees.map InfoTree.retainTacticInfo).flatten
     if args.hasFlag "original" then
-      trees := (trees.map InfoTree.retainOriginal).join
+      trees := (trees.map InfoTree.retainOriginal).flatten
     if args.hasFlag "substantive" then
-      trees := (trees.map InfoTree.retainSubstantive).join
+      trees := (trees.map InfoTree.retainSubstantive).flatten
     let json ← trees.mapM fun t => t.toJson none
     IO.println <| toJson <| InfoTreeExport.mk target json
     return 0

@@ -64,10 +64,10 @@ def goalComments (args : Cli.Parsed) : IO UInt32 := do
     initSearchPath (← findSysroot)
     let module := args.positionalArg! "module" |>.as! ModuleName
     let mut trees ← moduleInfoTrees module
-    trees := trees.bind InfoTree.retainTacticInfo
-    trees := trees.bind InfoTree.retainOriginal
-    trees := trees.bind InfoTree.retainSubstantive
-    let L₁ ← (trees.bind InfoTree.tactics).mapM fun ⟨i, c⟩ => i.rangesAndGoals c
+    trees := trees.flatMap InfoTree.retainTacticInfo
+    trees := trees.flatMap InfoTree.retainOriginal
+    trees := trees.flatMap InfoTree.retainSubstantive
+    let L₁ ← (trees.flatMap InfoTree.tactics).mapM fun ⟨i, c⟩ => i.rangesAndGoals c
     let L₂ := dropEnclosed L₁ |>.filter fun ⟨⟨⟨l₁, _⟩, ⟨l₂, _⟩⟩, _⟩  => l₁ = l₂
     let L₃ := (L₂.map fun ⟨r, s⟩ => (r, justTheGoal s)) |>.filter fun ⟨_, s⟩ => s != ""
     let mut src := (← moduleSource module).splitOn "\n"

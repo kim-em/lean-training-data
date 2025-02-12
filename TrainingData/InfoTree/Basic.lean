@@ -101,9 +101,9 @@ partial def filter (p : Info → Bool) (m : MVarId → Bool := fun _ => false) :
   | .context ctx tree => tree.filter p m |>.map (.context ctx)
   | .node info children =>
     if p info then
-      [.node info (children.toList.map (filter p m)).join.toPArray']
+      [.node info (children.toList.map (filter p m)).flatten.toPArray']
     else
-      (children.toList.map (filter p m)).join
+      (children.toList.map (filter p m)).flatten
   | .hole mvar => if m mvar then [.hole mvar] else []
 
 /-- Discard all nodes besides `.context` nodes and `TacticInfo` nodes. -/
@@ -155,7 +155,7 @@ partial def findAllInfo (t : InfoTree) (ctx? : Option ContextInfo) (p : Info →
   match t with
   | context ctx t => t.findAllInfo (ctx.mergeIntoOuter? ctx?) p
   | node i ts  =>
-      (if p i then [(i, ctx?, ts)] else []) ++ ts.toList.bind (fun t => t.findAllInfo ctx? p)
+      (if p i then [(i, ctx?, ts)] else []) ++ ts.toList.flatMap (fun t => t.findAllInfo ctx? p)
   | _ => []
 
 /-- Return all `TacticInfo` nodes in an `InfoTree` corresponding to tactics,
