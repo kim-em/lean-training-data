@@ -2,7 +2,6 @@ import TrainingData.Frontend
 import TrainingData.InfoTree.ToJson
 import Mathlib.Tactic.ToExpr -- Upstreamed to std4 as https://github.com/leanprover/std4/pull/221
 import Mathlib.Lean.CoreM
-import Batteries.Lean.Util.Path
 import Cli
 
 open Lean Elab IO Meta

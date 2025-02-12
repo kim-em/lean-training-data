@@ -2,7 +2,6 @@ import TrainingData.Frontend
 import TrainingData.InfoTree.ToJson
 import Mathlib.Data.String.Defs
 import Mathlib.Lean.CoreM
-import Batteries.Lean.Util.Path
 import Batteries.Data.String.Basic
 import Cli
 

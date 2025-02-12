@@ -3,6 +3,7 @@ import TrainingData.InfoTree.ToJson
 import Mathlib.Data.String.Defs
 import Mathlib.Lean.CoreM
 import Mathlib.Tactic.Change
+import Batteries.Data.List.Basic
 import Cli
 
 open Lean Elab IO Meta

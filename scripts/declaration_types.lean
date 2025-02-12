@@ -1,6 +1,5 @@
 import Mathlib.Lean.CoreM
 import Mathlib.Lean.Expr.Basic
-import Batteries.Lean.Util.Path
 import Batteries.Lean.HashMap
 
 open Lean Meta
